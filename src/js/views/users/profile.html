@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+
+<h1 class="title black-title">{{ usersShow.user.username }}</h1>
+
+<img class="profilephoto" ng-src="{{ usersShow.user.imageSRC }}" alt="usersShow.user.username">
+
+<a ng-if="main.isAuthenticated() && main.currentUserId === usersShow.user.id" ui-sref="usersEdit({ id: usersShow.user.id})">Edit</a>
+<a  ng-if="main.isAuthenticated() && main.currentUserId === usersShow.user.id" ng-click="usersShow.delete()">Delete</a>

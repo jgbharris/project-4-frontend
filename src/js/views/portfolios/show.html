@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+
+<h1 class="title black-title">{{ portfoliosShow.portfolio.name }}</h1>
+
+<h2>Stocks</h2>
+<div ng-repeat="stocks in portfoliosShow.portfolio.stocks">
+<p><em><small>{{ stock.name }} {{stock.price}}</small></em></p>
+</div>

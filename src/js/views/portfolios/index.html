@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+<div class="row">
+  <div ng-repeat="portfolio in portfoliosIndex.all">
+    <p>
+      <strong>@{{ portfolio.user.username }}</strong>
+      {{ portfolio.body }}
+
+      <div ng-repeat="stock in portfolio">
+        {{ stock }}
+      </div>
+    </p>
+  </div>
+</div>
