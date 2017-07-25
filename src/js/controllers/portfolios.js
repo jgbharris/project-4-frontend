@@ -30,11 +30,6 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth) {
 
   function addStock(stock) {
     vm.portfolio.stocks.push(stock); //pushes category to array
-    // .save({ campaignId: vm.campaign.id }, vm.newCategory)
-    // .$promise
-    // .then((category) => {
-    //   console.log(category);
-    // });
   }
   vm.addStock = addStock;
 
@@ -48,19 +43,48 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth) {
 }
 
 
-PortfoliosShowCtrl.$inject = ['Portfolio', '$stateParams', '$state'];
-function PortfoliosShowCtrl(Portfolio, $stateParams, $state) {
+PortfoliosShowCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Comment', '$auth', 'User'];
+function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, User) {
   const vm = this;
+  if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
 
   vm.portfolio = Portfolio.get($stateParams);
 
   function portfoliosDelete() {
-    vm.campaign
+    vm.portfolio
     .$remove()
     .then(() => $state.go('usersShow'));
   }
 
   vm.delete = portfoliosDelete;
+
+  function addComment() {
+    console.log('clicked');
+    vm.comment.portfolio_id = vm.portfolio.id;
+
+    Comment
+      .save(vm.comment)
+      .$promise
+      .then((comment) => {
+        vm.portfolio.comments = [];
+        vm.portfolio.comments.push(comment);
+        vm.comment = {};
+      });
+  }
+
+  vm.addComment = addComment;
+
+  function deleteComment(comment) {
+    Comment
+      .delete({ id: comment.id })
+      .$promise
+      .then(() => {
+        const index = vm.portfolio.comments.indexOf(comment);
+        vm.portfolio.comments.splice(index, 1);
+      });
+  }
+
+  vm.deleteComment = deleteComment;
 }
 
 PortfoliosEditCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Stock'];

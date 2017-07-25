@@ -26,10 +26,10 @@ function Router($stateProvider, $urlRouterProvider, $locationProvider) {
     templateUrl: 'js/views/portfolios/show.html',
     controller: 'PortfoliosShowCtrl as portfoliosShow'
   })
-  .state('porfoliosEdit', {
+  .state('portfoliosEdit', {
     url: '/portfolios/:id/edit',
-    templateUrl: 'js/views/porfolios/edit.html',
-    controller: 'PorfoliosEditCtrl as portfoliosEdit'
+    templateUrl: 'js/views/portfolios/edit.html',
+    controller: 'PortfoliosEditCtrl as portfoliosEdit'
   })
   .state('login', {
     url: '/login',
