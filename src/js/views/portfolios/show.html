@@ -4,7 +4,7 @@
 
 <h2>Stocks</h2>
 <div ng-repeat="stocks in portfoliosShow.portfolio.stocks">
-  <p><em><small>{{ stock.name }} {{stock.price}}</small></em></p>
+  <p><em><small>{{ stocks.name }}</small></em></p>
 </div>
 
 <button ui-sref="portfoliosEdit({id: portfoliosShow.portfolio.id})" ng-if="main.isAuthenticated() && main.currentUser.id === portfoliosShow.portfolio.user.id">Edit</button>

@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 
 <h1>Create portfolio</h1>
-<form  ng-submit="portfoliosNew.create()" name="portfoliosNew.portfolioForm" novalidate>
 
+
+<form ng-submit="portfoliosNew.searchTicker()">
+  <input type="text" ng-model="portfoliosNew.ticker" placeholder="Ticker">
+  <input type="submit" value="Search">
+</form>
+
+<div ng-show="portfoliosNew.tickerInfo">
+  {{ portfoliosNew.tickerInfo.name }}
+  {{ portfoliosNew.tickerInfo.ticker }}
+  {{ portfoliosNew.tickerInfo.short_description }}
+
+  <button ng-click="portfoliosNew.addStock()">Add stock</button>
+</div>
+<!-- {{ portfoliosNew.priceInfo.data.0.adj_close }} -->
+{{ portfoliosNew.ticker.shares }}
+
+<form  ng-submit="portfoliosNew.create()" name="portfoliosNew.portfolioForm" novalidate>
 
   <div class="field">
     <label class="label" for="name">Name</label>
@@ -15,35 +31,7 @@
     <div ng-message="required" class="help is-danger">You forgot to enter the name</div>
   </div>
 
-  <!--stock-->
-  <div class="stocks">
-    <ul >
-      <li ng-repeat="stock in portfoliosNew.stocks">
-        <!-- {{ stock }} -->
-        <!-- stock -->
-        <div class="field">
-          <p class="control">
-            <label class="label" for="stock">Stock</label>
-          </p>
-          <input class="input rounded-input" type="text" name="stock" list="stock"
-          ng-model="stock.name" required placeholder="TSCO">
-          <datalist id="stock">
-            <option value="TSCO"></option>
-          </datalist>
-          <!-- ng message stock -->
-          <div ng-messages="portfoliosNew.portfolioForm.stock.$error" ng-show="portfoliosNew.portfolioForm.$submitted || portfoliosNew.portfolioForm.stock.$touched">
-            <div ng-message="required" class="help is-danger">You forgot to add a stock</div>
-          </div>
-        </div>
-        <div class="field">
-          <button class="button is-danger" type="button" name="button"  ng-click="portfoliosNew.deleteStockFromView(stock)" ng-if="main.isAuthenticated()">Delete a stock</button>
-        </div>
-        <div class="field">
-          <button class="button is-success" type="button" name="button" ng-click="portfoliosNew.addStock(stock)" ng-if="main.isAuthenticated()">Add another stock</button>
-        </div>
-      </li>
-    </ul>
-  </div>
+
 
   <div>
     {{ portfoliosNew.portfolio.stocks }}
