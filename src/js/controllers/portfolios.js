@@ -16,7 +16,6 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price) {
   const vm = this;
   vm.portfolio = {};
   vm.portfolio.stocks = [];
-  vm.portfolio.stock_ids = [];
   // vm.stocks = Stock.query();
   vm.currentUserId = $auth.getPayload().id;
 
@@ -25,7 +24,7 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price) {
     Portfolio
     .save(vm.portfolio)
     .$promise
-    .then(() => $state.go('usersShow', { id: vm.currentUserId }));
+    .then((portfolio) => vm.portfolio = portfolio);
   }
 
   vm.create = portfoliosCreate;
@@ -35,7 +34,9 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price) {
     vm.stock = {
       ticker: vm.tickerInfo.ticker,
       name: vm.tickerInfo.name,
-      description: vm.tickerInfo.short_description
+      sector: vm.tickerInfo.sector,
+      portfolio_id: vm.portfolio.id,
+      shares: vm.stock.shares
     };
 
 
@@ -45,8 +46,7 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price) {
     .$promise
     .then((stock) => {
       // stock here is either a new stock, or the one that was already in the db
-      if (!vm.portfolio.stock_ids.includes(stock.id)) {
-        vm.portfolio.stock_ids.push(stock.id);
+      if (!vm.portfolio.stocks.includes(stock)) {
         vm.portfolio.stocks.push(stock);
       }
     });
@@ -86,17 +86,33 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price) {
 }
 
 
-PortfoliosShowCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Comment', '$auth', 'User'];
-function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, User) {
+PortfoliosShowCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Comment', '$auth', 'User', 'price'];
+function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, User, price) {
   const vm = this;
   if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
 
-  vm.portfolio = Portfolio.get($stateParams);
+  Portfolio.get($stateParams)
+  .$promise
+  .then((portfolio) => {
+    vm.portfolio = portfolio;
+    vm.portfolio.stocks = vm.portfolio.stocks.map((stock) => {
+      price.getPrice(stock.ticker)
+      .then((response) => {
+        console.log(response);
+        stock.open = response.data[0].adj_open;
+        console.log(stock);
+      });
+      return stock;
+
+    });
+  });
+
+  // vm.portfolio = {'id': 7,'name': 'Test 5','stocks': [{'id': 2,'ticker': 'AAPL','name': 'Apple Inc','sector': 'Consumer Goods','created_at': '2017-07-26T08:46:34.198Z','updated_at': '2017-07-26T08:46:34.198Z','shares': 1000,'portfolio_id': 7,'open': 151.8},{'id': 3,'ticker': 'TSLA','name': 'Tesla Inc','sector': 'Consumer Goods','created_at': '2017-07-26T08:46:46.359Z','updated_at': '2017-07-26T08:46:46.359Z','shares': 1000,'portfolio_id': 7,'open': 345}],'comments': [],'stock_ids': [2,3],'user': {'id': 1,'username': 'jimjim','firstname': null,'lastname': null,'created_at': '2017-07-26T08:30:49.615Z','updated_at': '2017-07-26T08:30:49.615Z','email': 'jim@jimjim.com','password_digest': '$2a$10$U/PtM0q52f5jUzE8vtEXlOm7t/uZ94per1W6.z4EKi76BiC8ETmm2','facebook_id': null}};
 
   function portfoliosDelete() {
     vm.portfolio
     .$remove()
-    .then(() => $state.go('usersShow'));
+    .then(() => $state.go('usersShow', { id: vm.currentUser.id }));
   }
 
   vm.delete = portfoliosDelete;

@@ -1,5 +1,59 @@
 // Import all of your scss files here
+// @import 'vendor/bootstrap/bootstrap-grid';
 
+body{
+  background-color: white;
+  margin: 0;
+  font-family: 'Play', sans-serif;
+  cursor: url("radar.cur"), auto;
+}
+
+#homepage {
+  color: white;
+  text-align: center;
+}
+
+  nav {
+    height: 60px;
+    ul {
+      li {
+        line-height: 60px;
+        display: inline-block;
+        &:first-child {
+          font-size: 24px;
+        }
+        &:not(:first-child) {
+          float: right;
+          margin-left: 20px;
+        }
+        a {
+          color: black;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          &:hover, &:focus {
+            color: grey;
+            cursor: url("radar.cur"), auto;
+
+
+          }
+          &.active {
+            position: relative;
+            &:after {
+              content: "";
+              position: absolute;
+              bottom: -2px;
+              left: 0;
+              height: 2px;
+              width: 100%;
+              border-radius: 2px;
+              background-color: white;
+            }
+          }
+        }
+      }
+    }
+  }
 
 @-webkit-keyframes ticker {
   0% {
@@ -31,8 +85,8 @@
   bottom: 0;
   width: 100%;
   overflow: hidden;
-  height: 4rem;
-  background-color: $primary;
+  height: 10rem;
+  background-color: grey;
   padding-left: 100%;
 }
 
@@ -49,19 +103,106 @@
           animation-timing-function: linear;
  -webkit-animation-name: ticker;
          animation-name: ticker;
-  -webkit-animation-duration: $duration;
-          animation-duration: $duration;
+  -webkit-animation-duration: 40s;
+          animation-duration: 40s;
 
   &__item {
     display: inline-block;
     padding: 0 2rem;
     font-size: 2rem;
     a {
-      color: white;
+      color: blue;
       font-weight: 200;
       &:hover {
-        color: $warning;
+        color: tomato;
       }
     }
+  }
+}
+
+$size: 800px;
+
+
+
+.radar {
+  background: url(https://gtms03.alicdn.com/tps/i3/TB1Vet9IVXXXXbuapXXb2YSIVXX-567-567.png) no-repeat 50% 50%;
+  width: $size;
+  height: $size;
+  position: relative;
+  background-size: $size $size;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -$size / 2;
+  margin-top: -$size / 2;
+}
+
+.radar:hover {
+  background: none;
+}
+
+.radar .pointer {
+  position: absolute;
+  z-index: 1024;
+  left: 10.5820106%;
+  right: 10.5820106%;
+  top: 10.5820106%;
+  bottom: 50%;
+  will-change: transform;
+  transform-origin: 50% 100%;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background-image: linear-gradient(135deg,
+    rgba(5, 162, 185, 0.8) 0%,
+    rgba(100, 100, 100, 0.02) 70%,
+    rgba(100, 100, 100, 0) 100%
+    );
+  clip-path: polygon(100% 0,
+    100% 10%, //控制扇形角度 100% => 135deg
+    50% 100%, 0 100%, 0 0);
+
+  animation: rotate360 3s infinite linear;
+}
+
+.radar .pointer:after {
+  content: "";
+  position: absolute;
+  width: 50%;
+  bottom: -1px;
+  border-top: 2px solid rgba(0, 231, 244, 0.8);
+  box-shadow: 0 0 3px rgba(0, 231, 244, 0.6);
+  border-radius: 9px;
+}
+
+.shadow {
+  position: absolute;
+  left: 11%;
+  top: 11%;
+  right: 11%;
+  bottom: 11%;
+  margin: auto;
+  border-radius: 9999px;
+  box-shadow: 0 0 66px 6px #A51414;
+  animation: shadow 1s infinite ease;
+}
+
+
+@keyframes rotate360 {
+  0% {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes shadow {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

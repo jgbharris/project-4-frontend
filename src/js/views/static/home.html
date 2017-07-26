@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<h1>Corporate Radar</h1>
 
-<h2>Top Portfolios</h2>
-<h2>Stock picker</h2>
-
-<h2>News</h2>
 <div ng-controller="NewsCtrl as news" class="ticker-wrap">
-<div class="ticker">
-  <div class="ticker__item" ng-repeat="newstory in news.all">
-    <a href="{{newstory.url}}" target="_blank">
-      <h4>NEWS: {{ newstory.title }}</h4>
-    </a>
+  <div class="ticker">
+    <div class="ticker__item" ng-repeat="newstory in news.all">
+      <a href="{{newstory.url}}" target="_blank">
+        <h4>NEWS: {{ newstory.title }}</h4>
+      </a>
+    </div>
   </div>
 </div>
+
+<div class="radar">
+  <div class="pointer"></div>
+  <!-- <h1 id="homepage">Corporate Radar</h1> -->
+  <div class="shadow"></div>
 </div>

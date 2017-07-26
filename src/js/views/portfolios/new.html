@@ -2,23 +2,7 @@
 
 <h1>Create portfolio</h1>
 
-
-<form ng-submit="portfoliosNew.searchTicker()">
-  <input type="text" ng-model="portfoliosNew.ticker" placeholder="Ticker">
-  <input type="submit" value="Search">
-</form>
-
-<div ng-show="portfoliosNew.tickerInfo">
-  {{ portfoliosNew.tickerInfo.name }}
-  {{ portfoliosNew.tickerInfo.ticker }}
-  {{ portfoliosNew.tickerInfo.short_description }}
-
-  <button ng-click="portfoliosNew.addStock()">Add stock</button>
-</div>
-<!-- {{ portfoliosNew.priceInfo.data.0.adj_close }} -->
-{{ portfoliosNew.ticker.shares }}
-
-<form  ng-submit="portfoliosNew.create()" name="portfoliosNew.portfolioForm" novalidate>
+<form  ng-submit="portfoliosNew.create()" name="portfoliosNew.portfolioForm" novalidate ng-hide="portfoliosNew.portfolio.id">
 
   <div class="field">
     <label class="label" for="name">Name</label>
@@ -33,9 +17,7 @@
 
 
 
-  <div>
-    {{ portfoliosNew.portfolio.stocks }}
-  </div>
+
 
   <div class="field">
     <p class="control">
@@ -43,3 +25,25 @@
     </p>
   </div>
 </form>
+
+<div ng-show="portfoliosNew.portfolio.id">
+  <h1>{{ portfoliosNew.portfolio.name }}</h1>
+  <form ng-submit="portfoliosNew.searchTicker()">
+    <input type="text" ng-model="portfoliosNew.ticker" placeholder="Ticker">
+    <input type="submit" value="Search">
+  </form>
+
+  <div>
+    {{ portfoliosNew.tickerInfo.name }}
+    {{ portfoliosNew.tickerInfo.ticker }}
+    {{ portfoliosNew.tickerInfo.short_description }}
+    <input type="number" name="shares" value="" ng-model="portfoliosNew.stock.shares">
+    <button ng-click="portfoliosNew.addStock()">Add stock</button>
+  </div>
+  <!-- {{ portfoliosNew.priceInfo.data.0.adj_close }} -->
+  {{ portfoliosNew.ticker.shares }}
+</div>
+
+<div>
+  {{ portfoliosNew.portfolio.stocks }}
+</div>

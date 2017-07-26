@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 
-<h1 class="title black-title">{{ usersShow.user.username }}</h1>
-
-<p></p>
-
+<h1>{{ usersShow.user.username }}</h1>
+<h2>{{ usersShow.user.firstname }}</h2>
+<h2>{{ usersShow.user.lastname }}</h2>
 <img class="profilephoto" ng-src="{{ usersShow.user.imageSRC }}" alt="usersShow.user.username">
+
+<h1>Portfolios</h1>
+
+<div class="" ng-repeat="portfolio in usersShow.user.portfolios">
+<a ui-sref="portfoliosShow({ id: portfolio.id })"><h1>{{ portfolio.name }}</h1></a>
+<p><h2>{{ portfolio.stocks }}</h2></p>
+<p><h5>{{ stocks.id.name }}</h5></p>
+
+</div>
+
+
 
 <a ng-if="main.isAuthenticated() && main.currentUserId === usersShow.user.id" ui-sref="usersEdit({ id: usersShow.user.id})">Edit</a>
 
