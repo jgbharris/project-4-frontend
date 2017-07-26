@@ -15,15 +15,12 @@
     <div ng-message="required" class="help is-danger">You forgot to enter the name</div>
   </div>
 
-
-
-
-
   <div class="field">
     <p class="control">
       <input type="submit" class="button rounded-input" value="Create">
     </p>
   </div>
+
 </form>
 
 <div ng-show="portfoliosNew.portfolio.id">
@@ -34,16 +31,13 @@
   </form>
 
   <div>
+
     {{ portfoliosNew.tickerInfo.name }}
-    {{ portfoliosNew.tickerInfo.ticker }}
+    {{ portfoliosNew.tickerInfo.ticker}}
+    {{ portfoliosNew.tickerInfo.stock_exchange }}
     {{ portfoliosNew.tickerInfo.short_description }}
+
     <input type="number" name="shares" value="" ng-model="portfoliosNew.stock.shares">
     <button ng-click="portfoliosNew.addStock()">Add stock</button>
   </div>
-  <!-- {{ portfoliosNew.priceInfo.data.0.adj_close }} -->
-  {{ portfoliosNew.ticker.shares }}
-</div>
-
-<div>
-  {{ portfoliosNew.portfolio.stocks }}
 </div>

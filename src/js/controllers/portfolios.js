@@ -86,8 +86,8 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price) {
 }
 
 
-PortfoliosShowCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Comment', '$auth', 'User', 'price'];
-function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, User, price) {
+PortfoliosShowCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Comment', '$auth', 'User', 'price', 'info'];
+function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, User, price, info) {
   const vm = this;
   if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
 
@@ -147,6 +147,27 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
   }
 
   vm.deleteComment = deleteComment;
+
+  function searchTicker() {
+
+    console.log(vm.ticker);
+
+    info.getInfo(vm.ticker)
+    .then((info) => {
+      vm.tickerInfo = info;
+      console.log(info);
+    });
+
+    price.getPrice(vm.ticker)
+    .then((price) => {
+      vm.priceInfo = price;
+      console.log(price);
+    });
+  }
+
+  vm.searchTicker = searchTicker;
+
+
 }
 
 PortfoliosEditCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Stock'];

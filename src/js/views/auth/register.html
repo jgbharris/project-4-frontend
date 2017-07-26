@@ -4,10 +4,10 @@
     <form ng-submit="register.submit()" name="register.registerForm" novalidate>
 
       <!--image-->
-      <div class="field">
-        <label class="label" for="image">Image</label>
-        <label class="button rounded-input" for="image">Choose File</label>
-        <input base64 type="file" name="image" id="image" ng-model="register.user.base64" hidden>
+
+      <div class="form-group">
+        <label for="base64">Image</label>
+        <input type="file" base64 name="base64" id="base64" ng-model="register.user.base64">
         <img ng-src="{{ register.user.base64 }}">
       </div>
 
@@ -72,9 +72,9 @@
       </div>
 
       <!-- ng messages password-->
-        <div ng-messages="register.registerForm.password.$error" ng-show="register.registerForm.$submitted || register.registerForm.password.$touched">
-          <div ng-message="required">You forgot to enter a password</div>
-        </div>
+      <div ng-messages="register.registerForm.password.$error" ng-show="register.registerForm.$submitted || register.registerForm.password.$touched">
+        <div ng-message="required">You forgot to enter a password</div>
+      </div>
 
       <div>
         <label>Password Confirmation</label>
@@ -82,9 +82,9 @@
       </div>
 
       <!-- ng messages password confirmation-->
-        <div ng-messages="register.registerForm.passwordConfirmation.$error" ng-show="register.registerForm.$submitted || register.registerForm.passwordConfirmation.$touched" >
-          <div ng-message="required"><p class="help is-danger">You forgot to enter a password</p></div>
-        </div>
+      <div ng-messages="register.registerForm.passwordConfirmation.$error" ng-show="register.registerForm.$submitted || register.registerForm.passwordConfirmation.$touched" >
+        <div ng-message="required"><p class="help is-danger">You forgot to enter a password</p></div>
+      </div>
 
 
 

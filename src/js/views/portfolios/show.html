@@ -4,7 +4,11 @@
 
 <h2>Stocks</h2>
 <div ng-repeat="stocks in portfoliosShow.portfolio.stocks">
-  <p><em><small>{{ stocks.name }}</small></em></p>
+  <p>{{ stocks.name }}</p>
+  <p>{{ stocks.ticker }}</p>
+  <p>{{ stocks.shares }}</p>
+  <p>{{ stocks.sector }}</p>
+  <!-- <p><em><small>{{ portfoliosShow.tickerInfo.short_description }}</small></em></p> -->
 </div>
 
 <button ui-sref="portfoliosEdit({id: portfoliosShow.portfolio.id})" ng-if="main.isAuthenticated() && main.currentUser.id === portfoliosShow.portfolio.user.id">Edit</button>
