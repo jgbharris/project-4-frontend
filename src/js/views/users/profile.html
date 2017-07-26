@@ -9,16 +9,11 @@
 <h1>Portfolios</h1>
 
 <div class="" ng-repeat="portfolio in usersShow.user.portfolios">
-
-<a ui-sref="portfoliosShow({ id: portfolio.id })"><h1>{{ portfolio.name }}</h1></a>
-<p><h2>{{ portfolio.stocks }}</h2></p>
-
-
-
+  <a ui-sref="portfoliosShow({ id: portfolio.id })"><h1>{{ portfolio.name }}</h1></a>
 </div>
 
 
 
-<a ng-if="main.isAuthenticated() && main.currentUserId === usersShow.user.id" ui-sref="usersEdit({ id: usersShow.user.id})">Edit</a>
+<a ng-if="main.isAuthenticated() && main.currentUser.id === usersShow.user.id" ui-sref="usersEdit({ id: usersShow.user.id})">Edit</a>
 
-<a ng-if="main.isAuthenticated() && main.currentUserId === usersShow.user.id" ng-click="usersShow.delete()">Delete</a>
+<a ng-if="main.isAuthenticated() && main.currentUser.id === usersShow.user.id" ng-click="usersShow.delete()">Delete</a>

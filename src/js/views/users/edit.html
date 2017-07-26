@@ -11,7 +11,8 @@
         <div class="form-group">
           <label for="image">Image</label>
           <label class="button rounded-input" for="image">Choose File</label>
-          <input base64 type="file" name="image" id="image" ng-model="usersEdit.user.base64" hidden>
+          <input base64 type="file" name="image" id="image" ng-model="usersEdit.user.base64">
+          <img ng-src="{{ usersEdit.user.base64 }}">
         </div>
 
         <!-- username -->
@@ -64,22 +65,6 @@
           </div>
           <div ng-message="maxlength">
             <p class="help is-danger">The email address you entered is too long</p>
-          </div>
-        </div>
-        <!-- address / location -->
-        <div class="field">
-          <p class="control">
-            <label class="label" for="location">Location</label>
-          </p>
-
-          <input type="text" class="input rounded-input" id="location" name="location"
-          ng-model="usersEdit.user.address" location="usersEdit.user.location"
-          required google-autocomplete>
-          <h1>{{ register.user.location }}</h1>
-
-          <!-- ng message location -->
-          <div ng-messages="usersEdit.editForm.location.$error" ng-show="usersEdit.editForm.$submitted || usersEdit.editForm.location.$touched">
-            <div ng-message="required" class="help is-danger">You forgot to enter the location</div>
           </div>
         </div>
         <!-- password -->

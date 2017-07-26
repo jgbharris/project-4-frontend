@@ -11,14 +11,14 @@ function PortfoliosIndexCtrl(Portfolio) {
   vm.all = Portfolio.query();
 }
 
-PortfoliosNewCtrl.$inject = ['Portfolio', 'Stock', 'User', '$state', '$auth', 'info', 'price'];
-function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price) {
+PortfoliosNewCtrl.$inject = ['Portfolio', 'Stock', 'User', '$state', '$auth', 'info', 'price', 'companies'];
+function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price, companies) {
   const vm = this;
   vm.portfolio = {};
   vm.portfolio.stocks = [];
+
   // vm.stocks = Stock.query();
   vm.currentUserId = $auth.getPayload().id;
-
 
   function portfoliosCreate() {
     Portfolio
@@ -28,6 +28,7 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price) {
   }
 
   vm.create = portfoliosCreate;
+
 
   function addStock() {
     // create the new stock object to send to the database
@@ -54,13 +55,6 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price) {
   }
   vm.addStock = addStock;
 
-  function deleteStockFromView(stock) {
-    console.log(stock);
-    const index = vm.portfolio.stocks.indexOf(stock);
-    vm.portfolio.stocks.splice(index, 1);
-  }
-  vm.deleteStockFromView = deleteStockFromView;
-
   function searchTicker() {
 
     console.log(vm.ticker);
@@ -81,7 +75,14 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price) {
   vm.searchTicker = searchTicker;
 
 
+  function getComps() {
+    companies.getCompanies(vm.q)
+    .then((data) => {
+      console.log(data);
+    });
+  }
 
+  vm.getComps = getComps;
 
 }
 
@@ -100,6 +101,9 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
       .then((response) => {
         console.log(response);
         stock.open = response.data[0].adj_open;
+        stock.close = response.data[0].adj_close;
+        stock.volume = response.data[0].adj_volume;
+        stock.date = response.data[0].date;
         console.log(stock);
       });
       return stock;
@@ -109,19 +113,18 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
 
   // vm.portfolio = {'id': 7,'name': 'Test 5','stocks': [{'id': 2,'ticker': 'AAPL','name': 'Apple Inc','sector': 'Consumer Goods','created_at': '2017-07-26T08:46:34.198Z','updated_at': '2017-07-26T08:46:34.198Z','shares': 1000,'portfolio_id': 7,'open': 151.8},{'id': 3,'ticker': 'TSLA','name': 'Tesla Inc','sector': 'Consumer Goods','created_at': '2017-07-26T08:46:46.359Z','updated_at': '2017-07-26T08:46:46.359Z','shares': 1000,'portfolio_id': 7,'open': 345}],'comments': [],'stock_ids': [2,3],'user': {'id': 1,'username': 'jimjim','firstname': null,'lastname': null,'created_at': '2017-07-26T08:30:49.615Z','updated_at': '2017-07-26T08:30:49.615Z','email': 'jim@jimjim.com','password_digest': '$2a$10$U/PtM0q52f5jUzE8vtEXlOm7t/uZ94per1W6.z4EKi76BiC8ETmm2','facebook_id': null}};
 
-  function portfoliosDelete() {
-    vm.portfolio
-    .$remove()
-    .then(() => $state.go('usersShow', { id: vm.currentUser.id }));
-  }
-
-  vm.delete = portfoliosDelete;
+  // function portfoliosDelete() {
+  //   vm.portfolio
+  //   .$remove()
+  //   .then(() => $state.go('usersShow', { id: vm.currentUser.id }));
+  // }
+  //
+  // vm.delete = portfoliosDelete;
 
   function addComment() {
     console.log('clicked');
     vm.comment.portfolio_id = vm.portfolio.id;
     console.log('About to save:', vm.comment);
-
 
 
     Comment
@@ -170,8 +173,8 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
 
 }
 
-PortfoliosEditCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Stock'];
-function PortfoliosEditCtrl(Portfolio, $stateParams, $state, Stock) {
+PortfoliosEditCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Stock', 'info', 'price'];
+function PortfoliosEditCtrl(Portfolio, $stateParams, $state, Stock, info, price) {
   const vm = this;
 
   vm.portfolio = Portfolio.get($stateParams);
@@ -186,11 +189,48 @@ function PortfoliosEditCtrl(Portfolio, $stateParams, $state, Stock) {
 
   vm.update = portfoliosUpdate;
 
-  function addStock(stock) {
-    vm.portfolio.stocks.push(stock); //pushes category to array
-    console.log(vm.portfolio.stocks);
-  }
+  Portfolio.get($stateParams)
+  .$promise
+  .then((portfolio) => {
+    vm.portfolio = portfolio;
+    vm.portfolio.stocks = vm.portfolio.stocks.map((stock) => {
+      price.getPrice(stock.ticker)
+      .then((response) => {
+        console.log(response);
+        stock.open = response.data[0].adj_open;
+        stock.close = response.data[0].adj_close;
+        stock.volume = response.data[0].adj_volume;
+        stock.date = response.data[0].date;
+        console.log(stock);
+      });
+      return stock;
 
+    });
+  });
+
+  function addStock() {
+    // create the new stock object to send to the database
+    vm.stock = {
+      ticker: vm.tickerInfo.ticker,
+      name: vm.tickerInfo.name,
+      sector: vm.tickerInfo.sector,
+      portfolio_id: vm.portfolio.id,
+      shares: vm.stock.shares
+    };
+
+
+    console.log(vm.stock);
+    Stock
+    .save(vm.stock)
+    .$promise
+    .then((stock) => {
+      // stock here is either a new stock, or the one that was already in the db
+      if (!vm.portfolio.stocks.includes(stock)) {
+        vm.portfolio.stocks.push(stock);
+      }
+    });
+    //pushes category to array
+  }
 
   vm.addStock = addStock;
 
@@ -206,5 +246,31 @@ function PortfoliosEditCtrl(Portfolio, $stateParams, $state, Stock) {
 
   vm.deleteStock = deleteStock; //attached to controller
 
+  function searchTicker() {
+
+    console.log(vm.ticker);
+
+    info.getInfo(vm.ticker)
+    .then((info) => {
+      vm.tickerInfo = info;
+      console.log(info);
+    });
+
+    price.getPrice(vm.ticker)
+    .then((price) => {
+      vm.priceInfo = price;
+      console.log(price);
+    });
+  }
+
+  vm.searchTicker = searchTicker;
+
+  function portfoliosDelete() {
+    vm.portfolio
+    .$remove()
+    .then(() => $state.go('usersShow'));
+  }
+
+  vm.delete = portfoliosDelete;
 
 }

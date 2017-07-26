@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<h1>Edit portfolio</h1>
+
+<h1>{{ portfoliosEdit.portfolio.name }}</h1>
+
+<form  ng-submit="portfoliosEdit.update()" name="portfoliosEdit.portfolioForm" novalidate>
+
+  <div class="field">
+    <label class="label" for="name">Name</label>
+    <input type="text" id="name" name="name"
+    ng-model="portfoliosEdit.portfolio.name"
+    placeholder="e.g. Emerging Markets" required>
+  </div>
+
+  <div ng-messages="portfoliosEdit.portfolioForm.name.$error" ng-show="portfoliosEdit.portfolioForm.$submitted || portfoliosEdit.portfolioForm.name.$touched">
+    <div ng-message="required">You forgot to enter the name
+    </div>
+  </div>
+
+  <div class="field">
+    <p class="control">
+      <input type="submit" class="button rounded-input" value="Update">
+    </p>
+  </div>
+
+</form>
+
+<!-- Stocks -->
+
+<div ng-show="portfoliosEdit.portfolio.id">
+
+  <form ng-submit="portfoliosEdit.searchTicker()">
+    <input type="text" ng-model="portfoliosEdit.ticker" placeholder="Ticker">
+    <input type="submit" value="Search">
+  </form>
+
+  <div>
+
+    {{ portfoliosEdit.tickerInfo.name }}
+    {{ portfoliosEdit.tickerInfo.ticker}}
+    {{ portfoliosEdit.tickerInfo.stock_exchange }}
+    {{ portfoliosEdit.tickerInfo.short_description }}
+
+    <input type="number" name="shares" value="" ng-model="portfoliosEdit.stock.shares">
+
+    <button ng-click="portfoliosEdit.addStock()">Add stock</button>
+
+
+  </div>
+
+  <h2>Stocks</h2>
+  <div ng-repeat="stock in portfoliosEdit.portfolio.stocks">
+    <p>{{ stock.name }}</p>
+    <p>{{ stock.ticker }}</p>
+    <p>{{ stock.shares }}</p>
+    <p>{{ stock.sector }}</p>
+    <p>{{ stock.open }}</p>
+    <p>{{ stock.close }}</p>
+    <p>{{ stock.volume }}</p>
+    <button ng-click="portfoliosEdit.deleteStock(stock)">Delete Stock</button>
+
+  </div>
+
+</div>
+
+<button ng-click="portfoliosEdit.delete(portfolio)" ng-if="main.isAuthenticated() && main.currentUser.id === portfoliosEdit.portfolio.user.id">Delete portfolio</button>

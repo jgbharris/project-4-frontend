@@ -3,17 +3,23 @@
 <h1 class="title black-title">{{ portfoliosShow.portfolio.name }}</h1>
 
 <h2>Stocks</h2>
-<div ng-repeat="stocks in portfoliosShow.portfolio.stocks">
-  <p>{{ stocks.name }}</p>
-  <p>{{ stocks.ticker }}</p>
-  <p>{{ stocks.shares }}</p>
-  <p>{{ stocks.sector }}</p>
-  <!-- <p><em><small>{{ portfoliosShow.tickerInfo.short_description }}</small></em></p> -->
+<div ng-repeat="stock in portfoliosShow.portfolio.stocks">
+  <p>{{ stock.name }}</p>
+  <p>{{ stock.ticker }}</p>
+  <p>{{ stock.stock_exchange }}</p>
+  <p>{{ stock.shares }}</p>
+  <p>{{ stock.sector }}</p>
+  <p>{{ stock.open }}</p>
+  <p>{{ stock.close }}</p>
+  <p>{{ stock.volume }}</p>
 </div>
+
+<canvas id="pie" class="chart chart-pie"
+  chart-data="[300,500,100]" chart-labels="['A', 'B', 'C']">
+</canvas>
 
 <button ui-sref="portfoliosEdit({id: portfoliosShow.portfolio.id})" ng-if="main.isAuthenticated() && main.currentUser.id === portfoliosShow.portfolio.user.id">Edit</button>
 
-<button ng-click="portfoliosShow.delete()" ng-if="main.isAuthenticated() && main.currentUser.id === portfoliosShow.portfolio.user.id">Delete</button>
 
 
 <div class="comments">
@@ -32,8 +38,4 @@
       </form>
     </div>
   </div>
-</div>
-
-<div>
-  {{ portfoliosShow.portfolio }}
 </div>
