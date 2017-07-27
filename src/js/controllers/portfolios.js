@@ -114,16 +114,9 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
         vm.chartNames.push(stock.name);
         // console.log(stock);
       });
-      // A = (stock[0].close * stock[0].shares);
-      // B = (stock[1].close * stock[1].shares);
-      // C = (stock[2].close * stock[2].shares);
       return stock;
-
-
     });
   });
-
-
 
 
   function portfoliosDelete() {
@@ -134,6 +127,8 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
   }
 
   vm.delete = portfoliosDelete;
+
+
 
   function addComment() {
     console.log('clicked');
@@ -153,6 +148,8 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
 
   vm.addComment = addComment;
 
+
+
   function deleteComment(comment) {
     Comment
     .delete({ id: comment.id })
@@ -164,6 +161,8 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
   }
 
   vm.deleteComment = deleteComment;
+
+
 
   function searchTicker() {
 
@@ -292,7 +291,6 @@ function PortfoliosEditCtrl(Portfolio, $stateParams, $state, Stock, info, price,
 
   vm.getComps = getComps;
 
-  vm.getComps = getComps;
 
   function portfoliosDelete() {
     vm.portfolio

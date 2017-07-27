@@ -1,19 +1,31 @@
 <!DOCTYPE html>
+<div class="row">
+  <div class="column">
+    <div class="column is-half is-offset-one-quarter">
 
-<h1>{{ usersShow.user.username }}</h1>
-<h2>{{ usersShow.user.firstname }}</h2>
-<h2>{{ usersShow.user.lastname }}</h2>
+      <h1 class="pageSubtitle">{{ usersShow.user.username }}</h1>
+      <h2 class="pageSubtitle">{{ usersShow.user.firstname }}</h2>
+      <h2 class="pageSubtitle">{{ usersShow.user.lastname }}</h2>
 
-<img ng-src="{{ usersShow.user.image_src }}" alt="usersShow.user.username">
+      <img ng-src="{{ usersShow.user.image_src }}" alt="usersShow.user.username">
 
-<h1>Portfolios</h1>
+      <h1 class="pageSubtitle">Portfolios</h1>
 
-<div class="" ng-repeat="portfolio in usersShow.user.portfolios">
-  <a ui-sref="portfoliosShow({ id: portfolio.id })"><h1>{{ portfolio.name }}</h1></a>
+      <div class="pageSubtitle" ng-repeat="portfolio in usersShow.user.portfolios">
+        <a ui-sref="portfoliosShow({ id: portfolio.id })"><h1>{{ portfolio.name }}</h1></a>
+      </div>
+
+
+<div class="field">
+    <button class="button" type="button" name="button"><a ng-if="main.isAuthenticated() && main.currentUser.id === usersShow.user.id" ui-sref="usersEdit({ id: usersShow.user.id})">Edit</a></button>
+</div>
+
+<div class="field">
+  <button class="button" type="button" name="button"><a ng-if="main.isAuthenticated() && main.currentUser.id === usersShow.user.id" ng-click="usersShow.delete()">Delete</a></button>
 </div>
 
 
 
-<a ng-if="main.isAuthenticated() && main.currentUser.id === usersShow.user.id" ui-sref="usersEdit({ id: usersShow.user.id})">Edit</a>
-
-<a ng-if="main.isAuthenticated() && main.currentUser.id === usersShow.user.id" ng-click="usersShow.delete()">Delete</a>
+    </div>
+  </div>
+</div>

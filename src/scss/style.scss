@@ -1,18 +1,66 @@
 // Import all of your scss files here
 // @import 'vendor/bootstrap/bootstrap-grid';
+.radar-box{
+  position: relative;
+}
 
+html, body {
+  height: 100%;
+}
 
+body.home {
+  background-color: black;
+}
 
-body{
-  background-color: white;
+body {
+  // background-color: white;
   margin: 0;
   font-family: 'Play', sans-serif;
   cursor: url("radar.cur"), auto;
 }
 
-#homepage {
-  color: white;
+.pageTitle {
+  font-size: 30px;
   text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.pageSubtitle {
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#currentStocks {
+  margin-top: 50px;
+}
+
+button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+
+
+.fb-button {
+    background: #3B5998;
+    color: white !important;
+    border: none;
+    outline: 0;
+    line-height: 1.4px;
+    min-width: 180px;
+    margin: 20px auto;
+    display: block;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 8px;
+    &:hover {
+      background: lighten(#3B5998, 20%);
+      transition: background 0.5s;
+      color: white;
+    }
 }
 
 nav {
@@ -26,18 +74,16 @@ nav {
       }
       &:not(:first-child) {
         float: right;
-        margin-left: 20px;
+        margin-left: 40px;
       }
       a {
-        color: black;
+        color: grey;
         font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 2px;
         &:hover, &:focus {
-          color: grey;
+          color: lighten;
           cursor: url("radar.cur"), auto;
-
-
         }
         &.active {
           position: relative;
@@ -88,7 +134,7 @@ nav {
   width: 100%;
   overflow: hidden;
   height: 10rem;
-  background-color: grey;
+  background-color: black;
   padding-left: 100%;
 }
 
@@ -111,12 +157,12 @@ nav {
   &__item {
     display: inline-block;
     padding: 0 2rem;
-    font-size: 2rem;
+    font-size: 25px;
     a {
-      color: blue;
+      color: white;
       font-weight: 200;
       &:hover {
-        color: tomato;
+        color: blue;
       }
     }
   }
@@ -130,13 +176,10 @@ $size: 800px;
   background: url(https://gtms03.alicdn.com/tps/i3/TB1Vet9IVXXXXbuapXXb2YSIVXX-567-567.png) no-repeat 50% 50%;
   width: $size;
   height: $size;
-  position: relative;
   background-size: $size $size;
   position: absolute;
   left: 50%;
-  top: 50%;
-  margin-left: -$size / 2;
-  margin-top: -$size / 2;
+  transform: translate(-50%, 0);
 }
 
 .radar:hover {
@@ -208,13 +251,3 @@ $size: 800px;
     opacity: 0;
   }
 }
-
-// .chart-pie {
-//   chart-data: series data;
-//   chart-labels: series labels;
-//   chart-options (default: {}): Chart.js options;
-//   chart-click (optional): onclick event handler;
-//   chart-hover (optional): onmousemove event handler;
-//   chart-colors (default to global colors): colors for the chart;
-//   chart-dataset-override (optional): override datasets individually;
-// }

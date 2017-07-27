@@ -6,6 +6,7 @@
   <title>Corporate Radar</title>
   <link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- inject:js -->
   <!-- endinject -->
@@ -15,22 +16,19 @@
 <body ng-controller="MainCtrl as main" ng-class="main.pageName">
 
   <nav>
-
     <ul>
       <li><a ui-sref="home">Corporate Radar</a></li>
       <li ng-if="main.isAuthenticated()"><a ui-sref="usersShow({id: main.currentUser.id})">Profile</a></li>
       <li ng-if="!main.isAuthenticated()"><a ui-sref="register">Register</a></li>
       <li ng-if="!main.isAuthenticated()"><a ui-sref="login">Login</a></li>
-      <li><a class="nav-item" ng-if="main.isAuthenticated()" ui-sref="portfoliosNew" ui-sref-active="active">New portfolio</a></li>
+      <li><a ng-if="main.isAuthenticated()" ui-sref="portfoliosNew" ui-sref-active="active">New portfolio</a></li>
       <li ng-if="main.isAuthenticated()"><a href="#" ng-click="main.logout()">Logout</a></li>
     </ul>
-
-
   </nav>
 
-  <main ui-view class="container is-fluid">
+<main ui-view>
 
-  </main>
+</main>
 </body>
 
 </html>

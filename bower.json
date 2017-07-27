@@ -24,6 +24,7 @@
     "satellizer": "^0.15.5",
     "angular-messages": "^1.6.4",
     "angular-chart.js": "^1.1.1",
-    "bulma": "^0.4.4"
+    "bulma": "^0.4.4",
+    "font-awesome": "fontawesome#^4.7.0"
   }
 }

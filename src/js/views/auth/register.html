@@ -1,95 +1,90 @@
 <!DOCTYPE html>
 <div class="row">
-  <div class="col-md-6">
-    <form ng-submit="register.submit()" name="register.registerForm" novalidate>
+  <div class="column">
+    <div class="column is-half is-offset-one-quarter">
+      <h1 class="pageTitle">Register your account</h1>
 
-      <!--image-->
+      <form ng-submit="register.submit()" name="register.registerForm" novalidate>
 
-      <div class="form-group">
-        <label for="base64">Image</label>
-        <input type="file" base64 name="base64" id="base64" ng-model="register.user.base64">
-        <img ng-src="{{ register.user.base64 }}">
-      </div>
-
-      <div>
-        <label>First Name</label>
-        <input type="text" name="firstname" id="firstname" ng-model="register.user.firstname"
-        placeholder="First name"
-        required>
-      </div>
-      <!-- ng-messages first name-->
-      <div class="error-messages" ng-messages="register.registerForm.firstname.$error" ng-show="register.registerForm.$submitted || register.registerForm.firstname.$touched" ng-messages-multiple>
-        <div ng-message="required">
-          <p class="help is-danger">You forgot to enter your first name</p>
+        <!--image-->
+        <div class="field">
+          <label class="label" for="image">Image</label>
+          <label class="button rounded-input" for="image">Choose File</label>
+          <input base64 type="file" name="image" id="image" ng-model="register.user.base64" hidden>
+          <img ng-src="{{ register.user.base64 }}">
         </div>
-      </div>
 
-      <div>
-        <label>Last Name</label>
-        <input type="text" name="lastname" id="lastname" ng-model="register.user.lastname" placeholder="Last name"
-        required>
-      </div>
 
-      <!-- ng-messages last name-->
-      <div class="error-messages" ng-messages="register.registerForm.lastname.$error" ng-show="register.registerForm.$submitted || register.registerForm.lastname.$touched" ng-messages-multiple>
-        <div ng-message="required">
-          <p class="help is-danger">You forgot to enter your last name</p>
+        <div class="field">
+          <input class="input is-success" type="text" name="firstname" id="firstname" ng-model="register.user.firstname"
+          placeholder="First name"
+          required>
         </div>
-      </div>
-
-
-
-      <div>
-        <label>Username</label>
-        <input type="text" name="username" id="username" ng-model="register.user.username" placeholder="Username
-        " required>
-      </div>
-
-      <!-- ng-messages username-->
-      <div class="error-messages" ng-messages="register.registerForm.username.$error" ng-show="register.registerForm.$submitted || register.registerForm.username.$touched" ng-messages-multiple>
-        <div ng-message="required">
-          <p class="help is-danger">You forgot to enter the username</p>
+        <!-- ng-messages first name-->
+        <div class="error-messages" ng-messages="register.registerForm.firstname.$error" ng-show="register.registerForm.$submitted || register.registerForm.firstname.$touched" ng-messages-multiple>
+          <div ng-message="required">
+            <p class="help is-danger">You forgot to enter your first name</p>
+          </div>
         </div>
-      </div>
 
-
-      <div>
-        <label>Email</label>
-        <input type="text" name="email" id="email" ng-model="register.user.email" placeholder="Email" required>
-      </div>
-
-      <!-- ng-messages email-->
-      <div class="error-messages" ng-messages="register.registerForm.email.$error" ng-show="register.registerForm.$submitted || register.registerForm.email.$touched" ng-messages-multiple>
-        <div ng-message="required">
-          <p class="help is-danger">You forgot to enter the email address</p>
+        <div class="field">
+          <input  class="input is-success" type="text" name="lastname" id="lastname" ng-model="register.user.lastname" placeholder="Last name"
+          required>
         </div>
-      </div>
 
-
-      <div>
-        <label>Password</label>
-        <input type="password" name="password" id="password" ng-model="register.user.password" placeholder="Password" required>
-      </div>
-
-      <!-- ng messages password-->
-      <div ng-messages="register.registerForm.password.$error" ng-show="register.registerForm.$submitted || register.registerForm.password.$touched">
-        <div ng-message="required">You forgot to enter a password</div>
-      </div>
-
-      <div>
-        <label>Password Confirmation</label>
-        <input type="password" ng-model="register.user.password_confirmation" name="passwordConfirmation" id="passwordConfirmation" placeholder="Password confirmation" required>
-      </div>
-
-      <!-- ng messages password confirmation-->
-      <div ng-messages="register.registerForm.passwordConfirmation.$error" ng-show="register.registerForm.$submitted || register.registerForm.passwordConfirmation.$touched" >
-        <div ng-message="required"><p class="help is-danger">You forgot to enter a password</p></div>
-      </div>
+        <!-- ng-messages last name-->
+        <div class="error-messages" ng-messages="register.registerForm.lastname.$error" ng-show="register.registerForm.$submitted || register.registerForm.lastname.$touched" ng-messages-multiple>
+          <div ng-message="required">
+            <p class="help is-danger">You forgot to enter your last name</p>
+          </div>
+        </div>
 
 
 
+        <div class="field">
+          <input  class="input is-success" type="text" name="username" id="username" ng-model="register.user.username" placeholder="Username
+          " required>
+        </div>
 
-      <button>Register</button>
-    </form>
+        <!-- ng-messages username-->
+        <div class="error-messages" ng-messages="register.registerForm.username.$error" ng-show="register.registerForm.$submitted || register.registerForm.username.$touched" ng-messages-multiple>
+          <div ng-message="required">
+            <p class="help is-danger">You forgot to enter the username</p>
+          </div>
+        </div>
+
+
+        <div class="field">
+          <input class="input is-success" type="text" name="email" id="email" ng-model="register.user.email" placeholder="Email" required>
+        </div>
+
+        <!-- ng-messages email-->
+        <div class="error-messages" ng-messages="register.registerForm.email.$error" ng-show="register.registerForm.$submitted || register.registerForm.email.$touched" ng-messages-multiple>
+          <div ng-message="required">
+            <p class="help is-danger">You forgot to enter the email address</p>
+          </div>
+        </div>
+
+
+        <div class="field">
+          <input class="input is-success" type="password" name="password" id="password" ng-model="register.user.password" placeholder="Password" required>
+        </div>
+
+        <!-- ng messages password-->
+        <div ng-messages="register.registerForm.password.$error" ng-show="register.registerForm.$submitted || register.registerForm.password.$touched">
+          <div ng-message="required">You forgot to enter a password</div>
+        </div>
+
+        <div class="field">
+          <input class="input is-success" type="password" ng-model="register.user.password_confirmation" name="passwordConfirmation" id="passwordConfirmation" placeholder="Password confirmation" required>
+        </div>
+
+        <!-- ng messages password confirmation-->
+        <div ng-messages="register.registerForm.passwordConfirmation.$error" ng-show="register.registerForm.$submitted || register.registerForm.passwordConfirmation.$touched" >
+          <div ng-message="required"><p class="help is-danger">You forgot to enter a password</p></div>
+        </div>
+        <button class="button">Register</button>
+      </form>
+    </div>
   </div>
 </div>
