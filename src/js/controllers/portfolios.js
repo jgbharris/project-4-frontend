@@ -78,6 +78,7 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price, c
   function getComps() {
     companies.getCompanies(vm.q)
     .then((data) => {
+      vm.companyInfo = data;
       console.log(data);
     });
   }

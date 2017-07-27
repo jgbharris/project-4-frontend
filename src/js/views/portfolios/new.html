@@ -24,24 +24,35 @@
 
 </form>
 
-<form ng-submit="portfoliosNew.getComps()">
-  <label>Ticker search</label>
-  <input type="text" ng-model="portfoliosNew.q" placeholder="Company name">
-  <input type="submit" value="Search">
-</form>
 
-<div>
-
-  {{ portfoliosNew}}
-
-</div>
 
 <div ng-show="portfoliosNew.portfolio.id">
   <h1>{{ portfoliosNew.portfolio.name }}</h1>
+
+  <form ng-submit="portfoliosNew.getComps()">
+    <label>Ticker search</label>
+    <input type="text" ng-model="portfoliosNew.q" placeholder="Company name">
+    <input type="submit" value="Search">
+  </form>
+
+
+  <div ng-repeat="stock in portfoliosNew.companyInfo.data">
+
+    {{ stock.security_name }}
+    {{ stock.ticker }}
+    {{ stock.security_type }}
+    {{ stock.market_sector }}
+    {{ stock.stock_exchange }}
+
+  </div>
+
+
+
   <form ng-submit="portfoliosNew.searchTicker()">
     <input type="text" ng-model="portfoliosNew.ticker" placeholder="Ticker">
     <input type="submit" value="Search">
   </form>
+
 
   <div>
 
@@ -52,6 +63,9 @@
 
     <input type="number" name="shares" value="" ng-model="portfoliosNew.stock.shares">
     <button ng-click="portfoliosNew.addStock()">Add stock</button>
+
   </div>
-  {{ portfoliosNew.portfolio.stocks }}
+
 </div>
+
+{{ portfoliosNew.portfolio.stocks }}
