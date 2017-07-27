@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-
+<section id="portfolioindexHero" class="hero is-info is-large">
+  <div class="hero-body">
+    <div class="container">
+    </div>
+  </div>
+</section>
 <div class="row">
-  <div ng-repeat="portfolio in portfoliosIndex.all">
-    <p>
-      <strong>@{{ portfolio.user.username }}</strong>
-      {{ portfolio.body }}
+    <div ng-repeat="portfolio in portfoliosIndex.all">
+      <div class="portfolio">
+      <a ui-sref="portfoliosShow({ id: portfolio.id })"><h1 class="pageTitle">{{ portfolio.name }}</h1></a>
 
-      <div ng-repeat="stock in portfolio">
-        {{ stock }}
-      </div>
-    </p>
+      <p class="indexUsername">{{ portfolio.user.username }}</p>
+        <div ng-repeat="stock in portfolios.Index.stocks">
+          {{ stock.name }}
+        </div>
+    </div>
   </div>
 </div>

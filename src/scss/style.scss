@@ -19,6 +19,66 @@ body {
   cursor: url("radar.cur"), auto;
 }
 
+img {
+  display: block;
+  margin: auto;
+}
+
+#loginHero {
+  background-image: url("../images/login.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#registerHero {
+  background-image: url("../images/register.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#profileHero {
+  background-image: url("../images/profile.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#portfolioHero {
+  background-image: url("../images/portfolio.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+#portfolionewHero {
+  background-image: url("../images/portfolionew.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+#portfolioindexHero {
+  background-image: url("../images/index.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+#userEditHero {
+  background-image: url("../images/edit.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+
+
+
+
+#pie {
+  width: 400px;
+  height: 400px;
+}
+
 .pageTitle {
   font-size: 30px;
   text-align: center;
@@ -33,6 +93,15 @@ body {
   text-transform: uppercase;
 }
 
+.comment {
+  font-size: 15px;
+}
+
+.indexUsername {
+  font-size: 30px;
+  text-align: center;
+}
+
 #currentStocks {
   margin-top: 50px;
 }
@@ -40,6 +109,13 @@ body {
 button {
   width: 100%;
   margin-top: 10px;
+}
+
+.portfolio {
+  height: 150px;
+  border-color: cyan;
+  border-width: thin;
+  border-style: dotted;
 }
 
 

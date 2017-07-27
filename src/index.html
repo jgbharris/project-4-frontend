@@ -21,6 +21,7 @@
       <li ng-if="main.isAuthenticated()"><a ui-sref="usersShow({id: main.currentUser.id})">Profile</a></li>
       <li ng-if="!main.isAuthenticated()"><a ui-sref="register">Register</a></li>
       <li ng-if="!main.isAuthenticated()"><a ui-sref="login">Login</a></li>
+      <li li ng-if="main.isAuthenticated()"><a ui-sref="portfoliosIndex">All portfolios</a></li>
       <li><a ng-if="main.isAuthenticated()" ui-sref="portfoliosNew" ui-sref-active="active">New portfolio</a></li>
       <li ng-if="main.isAuthenticated()"><a href="#" ng-click="main.logout()">Logout</a></li>
     </ul>

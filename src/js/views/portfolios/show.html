@@ -1,40 +1,79 @@
 <!DOCTYPE html>
+<section id="portfolioHero" class="hero is-info is-large">
+  <div class="hero-body">
+    <div class="container">
+    </div>
+  </div>
+</section>
 
-<h1 class="title black-title">{{ portfoliosShow.portfolio.name }}</h1>
 
-<h2>Stocks</h2>
-<div ng-repeat="stock in portfoliosShow.portfolio.stocks">
-  <p>{{ stock.name }}</p>
-  <p>{{ stock.ticker }}</p>
-  <p>{{ stock.stock_exchange }}</p>
-  <p>{{ stock.shares }}</p>
-  <p>{{ stock.sector }}</p>
-  <p>{{ stock.open }}</p>
-  <p>{{ stock.close }}</p>
-  <p>{{ stock.volume }}</p>
+<h1 class="pageTitle">{{ portfoliosShow.portfolio.name }}</h1>
+<div class="container">
+  <div class="row">
+    <div class="columns">
+      <div id="currentStocks" class="column is-11">
+        <h2 class="pageSubtitle">Current stocks</h2>
+        <div class="row">
+          <table style="width:100%">
+            <tr>
+              <th>Company</th>
+              <th>Ticker</th>
+              <th>Shares</th>
+              <th>Sector</th>
+              <th>Open</th>
+              <th>Close</th>
+              <th>Volume</th>
+            </tr>
+            <tr ng-repeat="stock in portfoliosShow.portfolio.stocks">
+              <td>{{ stock.name }}</td>
+              <td>{{ stock.ticker }}</td>
+              <td>{{ stock.shares }}</td>
+              <td>{{ stock.sector }}</td>
+              <td>{{ stock.open }}</td>
+              <td>{{ stock.close }}</td>
+              <td>{{ stock.volume }}</td>
+
+            </tr>
+          </table>
+        </div>
+
+      </div>
+
+      <div id="pie">
+      <canvas class="chart chart-pie"
+        chart-data="portfoliosShow.chartData" chart-labels="portfoliosShow.chartNames">
+      </canvas>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
-<canvas id="pie" class="chart chart-pie"
-  chart-data="portfoliosShow.chartData" chart-labels="portfoliosShow.chartNames">
-</canvas>
 
-<button ui-sref="portfoliosEdit({id: portfoliosShow.portfolio.id})" ng-if="main.isAuthenticated() && main.currentUser.id === portfoliosShow.portfolio.user.id">Edit</button>
+
+
+
+<button class="button column is-half is-offset-one-quarter" ui-sref="portfoliosEdit({id: portfoliosShow.portfolio.id})" ng-if="main.isAuthenticated() && main.currentUser.id === portfoliosShow.portfolio.user.id">Edit</button>
 
 
 
 <div class="comments">
   <div class="row">
-    <div class="col-md-6">
-      <h2>Comments</h2>
+    <div class="column is-half is-offset-one-quarter">
+      <h2 class="pageSubtitle">Comments</h2>
       <ul>
-        <li ng-repeat="comment in portfoliosShow.portfolio.comments">{{ comment.body }} - <strong>{{ comment.user.username }}</strong><button ng-click="portfoliosShow.deleteComment(comment)" ng-if="main.isAuthenticated() && main.currentUser.id === comment.user.id">Delete</button></li>
+        <li ng-repeat="comment in portfoliosShow.portfolio.comments">{{ comment.body }} - <strong>{{ comment.user.username }}</strong><button class="button" ng-click="portfoliosShow.deleteComment(comment)" ng-if="main.isAuthenticated() && main.currentUser.id === comment.user.id">Delete</button></li>
       </ul>
     </div>
-    <div class="col-md-6" ng-if="main.isAuthenticated()">
-      <h2>Add Comment</h2>
+    <div  ng-if="main.isAuthenticated()">
+      <h2 class="pageSubtitle comment">Add Comment</h2>
       <form ng-submit="portfoliosShow.addComment()">
-        <textarea type="text" name="body" ng-model="portfoliosShow.comment.body"></textarea>
-        <button>Create</button>
+        <div class="column is-half is-offset-one-quarter">
+          <textarea class="textarea " type="text" name="body" ng-model="portfoliosShow.comment.body"></textarea>
+          <button class="button">Create</button>
+        </div>
+
       </form>
     </div>
   </div>

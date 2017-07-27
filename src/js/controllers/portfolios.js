@@ -9,6 +9,9 @@ PortfoliosIndexCtrl.$inject = ['Portfolio'];
 function PortfoliosIndexCtrl(Portfolio) {
   const vm = this;
   vm.all = Portfolio.query();
+
+
+
 }
 
 PortfoliosNewCtrl.$inject = ['Portfolio', 'Stock', 'User', '$state', '$auth', 'info', 'price', 'companies'];
@@ -16,9 +19,6 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price, c
   const vm = this;
   vm.portfolio = {};
   vm.portfolio.stocks = [];
-
-
-
 
 
   // vm.stocks = Stock.query();
@@ -105,7 +105,7 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
     vm.portfolio.stocks = vm.portfolio.stocks.map((stock) => {
       price.getPrice(stock.ticker)
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         stock.open = response.data[0].adj_open;
         stock.close = response.data[0].adj_close;
         stock.volume = response.data[0].adj_volume;
