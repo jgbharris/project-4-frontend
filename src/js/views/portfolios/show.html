@@ -15,7 +15,7 @@
 </div>
 
 <canvas id="pie" class="chart chart-pie"
-  chart-data="[300,500,100]" chart-labels="['A', 'B', 'C']">
+  chart-data="portfoliosShow.chartData" chart-labels="portfoliosShow.chartNames">
 </canvas>
 
 <button ui-sref="portfoliosEdit({id: portfoliosShow.portfolio.id})" ng-if="main.isAuthenticated() && main.currentUser.id === portfoliosShow.portfolio.user.id">Edit</button>

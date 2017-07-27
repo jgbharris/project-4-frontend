@@ -1,45 +1,78 @@
 <!DOCTYPE html>
 <div class="row">
-  <div class="col-md-6">
     <h1>Login</h1>
+</div>
 
-    <form name="login.loginForm" ng-submit="login.submit()" novalidate>
-      <div class="field">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email"
-        ng-model="login.credentials.email"
-        ng-minlength="5"
-        ng-maxlength="30"
-        required>
-      </div>
-      <!-- ng-messages email-->
-      <div class="error-messages" ng-messages="login.loginForm.email.$error" ng-show="login.loginForm.$submitted || login.loginForm.email.$touched" ng-messages-multiple>
-        <div ng-message="required">
-          <p class="help is-danger">You forgot to enter the email address</p>
-        </div>
-        <div ng-message="email">
-          <p class="help is-danger">You didn't enter the email address correctly</p>
-        </div>
-        <div ng-message="minlength">
-          <p class="help is-danger">The email address you entered is too short</p>
-        </div>
-        <div ng-message="maxlength">
-          <p class="help is-danger">The email address you entered is too long</p>
-        </div>
-      </div>
+<div class="row">
+  <div class="column">
+    <div class="column is-half is-offset-one-quarter">
 
-      <div>
-        <label for="password">Password</label>
-        <input class="input rounded-input" type="password" name="password" id="password" ng-model="login.credentials.password" required>
-      </div>
-      <!-- ng messages password-->
-      <div ng-messages="login.loginForm.password.$error" ng-show="login.loginForm.$submitted || login.loginForm.password.$dirty" ng-messages-multiple="ng-messages-multiple" class="error-messages">
-        <div ng-message="required"><p class="help is-danger">You forgot to enter a password</p></div>
-      </div>
+      <form name="login.loginForm" ng-submit="login.submit()" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email"
+          ng-model="login.credentials.email"
+          ng-minlength="5"
+          ng-maxlength="30"
+          required>
+        </div>
+        <!-- ng-messages email-->
+        <div class="error-messages" ng-messages="login.loginForm.email.$error" ng-show="login.loginForm.$submitted || login.loginForm.email.$touched" ng-messages-multiple>
+          <div ng-message="required">
+            <p class="help is-danger">You forgot to enter the email address</p>
+          </div>
+          <div ng-message="email">
+            <p class="help is-danger">You didn't enter the email address correctly</p>
+          </div>
+          <div ng-message="minlength">
+            <p class="help is-danger">The email address you entered is too short</p>
+          </div>
+          <div ng-message="maxlength">
+            <p class="help is-danger">The email address you entered is too long</p>
+          </div>
+        </div>
+
+        <div>
+          <label for="password">Password</label>
+          <input class="input rounded-input" type="password" name="password" id="password" ng-model="login.credentials.password" required>
+        </div>
+        <!-- ng messages password-->
+        <div ng-messages="login.loginForm.password.$error" ng-show="login.loginForm.$submitted || login.loginForm.password.$dirty" ng-messages-multiple="ng-messages-multiple" class="error-messages">
+          <div ng-message="required"><p class="help is-danger">You forgot to enter a password</p></div>
+        </div>
 
 
-      <button>Login</button>
-      <button ng-click="login.authenticate('facebook')">Login with Facebook</button>
-    </form>
+<div class="field">
+  <label class="label">Username</label>
+  <div class="control has-icons-left has-icons-right">
+    <input class="input is-success" type="text" placeholder="Text input" value="bulma">
+    <span class="icon is-small is-left">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="icon is-small is-right">
+      <i class="fa fa-check"></i>
+    </span>
+  </div>
+  <p class="help is-success">This username is available</p>
+</div>
+
+<div class="field">
+  <label class="label">Email</label>
+  <div class="control has-icons-left has-icons-right">
+    <input class="input is-danger" type="text" placeholder="Email input" value="hello@">
+    <span class="icon is-small is-left">
+      <i class="fa fa-envelope"></i>
+    </span>
+    <span class="icon is-small is-right">
+      <i class="fa fa-warning"></i>
+    </span>
+  </div>
+  <p class="help is-danger">This email is invalid</p>
+</div>
+
+        <button>Login</button>
+        <button ng-click="login.authenticate('facebook')">Login with Facebook</button>
+      </form>
+    </div>
   </div>
 </div>

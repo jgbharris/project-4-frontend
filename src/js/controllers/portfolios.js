@@ -17,6 +17,10 @@ function PortfoliosNewCtrl(Portfolio, Stock, User, $state, $auth, info, price, c
   vm.portfolio = {};
   vm.portfolio.stocks = [];
 
+
+
+
+
   // vm.stocks = Stock.query();
   vm.currentUserId = $auth.getPayload().id;
 
@@ -92,7 +96,8 @@ PortfoliosShowCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Comment', 
 function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, User, price, info) {
   const vm = this;
   if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
-
+  vm.chartData =[];
+  vm.chartNames=[];
   Portfolio.get($stateParams)
   .$promise
   .then((portfolio) => {
@@ -100,27 +105,35 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
     vm.portfolio.stocks = vm.portfolio.stocks.map((stock) => {
       price.getPrice(stock.ticker)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         stock.open = response.data[0].adj_open;
         stock.close = response.data[0].adj_close;
         stock.volume = response.data[0].adj_volume;
         stock.date = response.data[0].date;
-        console.log(stock);
+        vm.chartData.push(parseFloat(stock.shares) * parseFloat(stock.open));
+        vm.chartNames.push(stock.name);
+        // console.log(stock);
       });
+      // A = (stock[0].close * stock[0].shares);
+      // B = (stock[1].close * stock[1].shares);
+      // C = (stock[2].close * stock[2].shares);
       return stock;
+
 
     });
   });
 
-  // vm.portfolio = {'id': 7,'name': 'Test 5','stocks': [{'id': 2,'ticker': 'AAPL','name': 'Apple Inc','sector': 'Consumer Goods','created_at': '2017-07-26T08:46:34.198Z','updated_at': '2017-07-26T08:46:34.198Z','shares': 1000,'portfolio_id': 7,'open': 151.8},{'id': 3,'ticker': 'TSLA','name': 'Tesla Inc','sector': 'Consumer Goods','created_at': '2017-07-26T08:46:46.359Z','updated_at': '2017-07-26T08:46:46.359Z','shares': 1000,'portfolio_id': 7,'open': 345}],'comments': [],'stock_ids': [2,3],'user': {'id': 1,'username': 'jimjim','firstname': null,'lastname': null,'created_at': '2017-07-26T08:30:49.615Z','updated_at': '2017-07-26T08:30:49.615Z','email': 'jim@jimjim.com','password_digest': '$2a$10$U/PtM0q52f5jUzE8vtEXlOm7t/uZ94per1W6.z4EKi76BiC8ETmm2','facebook_id': null}};
 
-  // function portfoliosDelete() {
-  //   vm.portfolio
-  //   .$remove()
-  //   .then(() => $state.go('usersShow', { id: vm.currentUser.id }));
-  // }
-  //
-  // vm.delete = portfoliosDelete;
+
+
+  function portfoliosDelete() {
+    console.log('runnning');
+    vm.portfolio
+    .$remove()
+    .then(() => $state.go('usersShow', { id: vm.currentUser.id }));
+  }
+
+  vm.delete = portfoliosDelete;
 
   function addComment() {
     console.log('clicked');
@@ -174,9 +187,11 @@ function PortfoliosShowCtrl(Portfolio, $stateParams, $state, Comment, $auth, Use
 
 }
 
-PortfoliosEditCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Stock', 'info', 'price'];
-function PortfoliosEditCtrl(Portfolio, $stateParams, $state, Stock, info, price) {
+PortfoliosEditCtrl.$inject = ['Portfolio', '$stateParams', '$state', 'Stock', 'info', 'price', '$auth', 'companies'];
+function PortfoliosEditCtrl(Portfolio, $stateParams, $state, Stock, info, price, $auth, companies) {
   const vm = this;
+
+  vm.currentUserId = $auth.getPayload().id;
 
   vm.portfolio = Portfolio.get($stateParams);
 
@@ -266,10 +281,23 @@ function PortfoliosEditCtrl(Portfolio, $stateParams, $state, Stock, info, price)
 
   vm.searchTicker = searchTicker;
 
+
+  function getComps() {
+    companies.getCompanies(vm.q)
+    .then((data) => {
+      vm.companyInfo = data;
+      console.log(data);
+    });
+  }
+
+  vm.getComps = getComps;
+
+  vm.getComps = getComps;
+
   function portfoliosDelete() {
     vm.portfolio
     .$remove()
-    .then(() => $state.go('usersShow'));
+    .then(() => $state.go('usersShow', { id: vm.currentUserId }));
   }
 
   vm.delete = portfoliosDelete;

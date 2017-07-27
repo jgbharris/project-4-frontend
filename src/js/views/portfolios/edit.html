@@ -26,6 +26,23 @@
 
 </form>
 
+<form ng-submit="portfoliosEdit.getComps()">
+  <label>Ticker search</label>
+  <input type="text" ng-model="portfoliosEdit.q" placeholder="Company name">
+  <input type="submit" value="Search">
+</form>
+
+
+<div ng-repeat="stock in portfoliosEdit.companyInfo.data">
+
+  {{ stock.security_name }}
+  {{ stock.ticker }}
+  {{ stock.security_type }}
+  {{ stock.market_sector }}
+  {{ stock.stock_exchange }}
+
+</div>
+
 <!-- Stocks -->
 
 <div ng-show="portfoliosEdit.portfolio.id">
@@ -34,6 +51,8 @@
     <input type="text" ng-model="portfoliosEdit.ticker" placeholder="Ticker">
     <input type="submit" value="Search">
   </form>
+
+
 
   <div>
 
@@ -64,4 +83,4 @@
 
 </div>
 
-<button ng-click="portfoliosEdit.delete(portfolio)" ng-if="main.isAuthenticated() && main.currentUser.id === portfoliosEdit.portfolio.user.id">Delete portfolio</button>
+<button ng-click="portfoliosEdit.delete()" ng-if="main.isAuthenticated() && main.currentUser.id === portfoliosEdit.portfolio.user.id">Delete portfolio</button>

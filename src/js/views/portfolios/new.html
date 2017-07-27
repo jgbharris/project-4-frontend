@@ -62,10 +62,19 @@
     {{ portfoliosNew.tickerInfo.short_description }}
 
     <input type="number" name="shares" value="" ng-model="portfoliosNew.stock.shares">
-    <button ng-click="portfoliosNew.addStock()">Add stock</button>
+    <button ng-click="portfoliosNew.addStock(ticker)">Add stock</button>
 
   </div>
 
 </div>
 
-{{ portfoliosNew.portfolio.stocks }}
+<h2>Stocks</h2>
+<div ng-repeat="stock in portfoliosNew.portfolio.stocks">
+  <p>{{ stock.name }}</p>
+  <p>{{ stock.ticker }}</p>
+  <p>{{ stock.shares }}</p>
+  <p>{{ stock.sector }}</p>
+  <p>{{ stock.open }}</p>
+  <p>{{ stock.close }}</p>
+  <p>{{ stock.volume }}</p>
+</div>
