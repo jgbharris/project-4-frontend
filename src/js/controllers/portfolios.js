@@ -195,6 +195,7 @@ function PortfoliosEditCtrl(Portfolio, $stateParams, $state, Stock, info, price,
   vm.portfolio = Portfolio.get($stateParams);
 
   function portfoliosUpdate() {
+    console.log('clicked');
     if (vm.portfolioForm.$valid) {
       vm.portfolio
       .$update()
